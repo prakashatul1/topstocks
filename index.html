@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link href="style.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+
+#table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#table td, #table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#table tr:nth-child(even){background-color: #f2f2f2;}
+
+#table tr:hover {background-color: #ddd;}
+
+#table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+#search{
+    float: right;
+    padding: 0.5%;
+    width: 33%;
+    margin: 2%;
+    border: 1px solid grey;
+    border-radius: 1%;
+}
+.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+.example button:hover {
+  background: #0b7dda;
+}
+
+.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+#search{
+    float: right;
+    margin: 2%;
+    padding: 0.3%;
+    margin-right: -2%;
+    width: 16%;}
+
+    #btn{
+    margin: 2%;
+    height: 17%;
+    padding: 0.36%;
+    width: 2%;
+    color: white;
+    border: #4CAF50;
+    float: right;
+    background-color: #4CAF50;
+    }
+    #heading{
+    text-align: center;
+    }
+    </style>
+</head>
+
+<body>
+<div>
+    <h3 id="heading">Heading aa gya....</h3>
+</div>
+<div>
+    <form action="search" method="GET">
+        <button type="submit" id="btn" onclick="UserAction()"><i class="fa fa-search"></i></button>
+        <input type="text" placeholder="Search.." name="search" id="search">
+    </form>
+
+</div>
+
+    <table id="table">
+        <tr>
+            <th>SC_NAME</th>
+            <th>OPEN</th>
+            <th>HIGH</th>
+            <th>LOW</th>
+            <th>CLOSE</th>
+            <th>SC_CODE</th>
+        </tr>
+        {% for company in top_10 %}
+        <tr>
+            <td>{{ company.SC_NAME }}</td>
+            <td>{{ company.OPEN }}</td>
+            <td>{{ company.HIGH }}</td>
+            <td>{{ company.LOW }}</td>
+            <td>{{ company.CLOSE }}</td>
+            <td>{{ company.SC_CODE }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+<script>
+function UserAction() {
+     console.log("button clicked");
+    var request = new XMLHttpRequest();
+    request.open('GET','http://127.0.0.1:8080/search',true);
+
+    request.onload = function(){
+    var data = JSON.parse(this.response);
+    console.log(data);
+}}
+
+</script>
+</html>
+
+<!--http://127.0.0.1:8080/search-->
