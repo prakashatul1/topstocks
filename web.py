@@ -47,7 +47,11 @@ class index:
         return template.render(top_10=list_of_hash, search=search, search_flag = True)
 
 
-conn = redis.Redis('localhost')
+cherrypy.config.update({'engine.autoreload.on': False})
+cherrypy.server.unsubscribe()
+cherrypy.engine.start()
+
+conn = redis.Redis(host=os.environ.get('REDIS_URL', '127.0.0.1'))
 configfile = os.path.join(os.path.dirname(__file__),'server.conf')
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 env = Environment(loader=FileSystemLoader(CUR_DIR), trim_blocks=True)
