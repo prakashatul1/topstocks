@@ -4,7 +4,8 @@ import pandas as pd
 import zipfile
 import redis
 
-conn = redis.Redis(host='redis://h:pe9af2c4711610cb70f32b3c0c36b33d2f9f72a25dca00a1876148a8b5ae0f174@ec2-52-44-176-48.compute-1.amazonaws.com',port=12639)
+conn = redis.Redis(host='redis://h:pe9af2c4711610cb70f32b3c0c36b33d2f9f72a25dca00a1876148a8b5ae0f174'
+                        '@ec2-52-44-176-48.compute-1.amazonaws.com:=12639'.encode('idna'))
 
 url = 'https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx'
 page = requests.get(url)
