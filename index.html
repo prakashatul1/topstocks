@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <!--<link href="style.css" rel="stylesheet">-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 
@@ -85,15 +84,26 @@
     background-color: #4CAF50;
     }
     #heading{
-    text-align: center;
+    FONT-FAMILY: monospace;
+    FONT-SIZE: x-large;
+    COLOR: black;
+    }
+    .heading2{
+
+    FONT-FAMILY: sans-serif;
     }
     </style>
 </head>
-
 <body>
 <div>
-    <h3 id="heading">Heading aa gya....</h3>
+    <a id="heading" href="http://127.0.0.1:8080"><h3>Home</h3></a>
 </div>
+{% if top_10 %}
+{% if search_flag %}
+<h4 class="heading2">Search result for '{{ search }}'</h4>
+{% else %}
+<h2 align="center" class="heading2">Top ten stocks</h2>
+{% endif %}
 <div>
     <form action="search" method="GET">
         <button type="submit" id="btn" onclick="UserAction()"><i class="fa fa-search"></i></button>
@@ -104,12 +114,12 @@
 
     <table id="table">
         <tr>
-            <th>SC_NAME</th>
+            <th>COMPANY NAME</th>
             <th>OPEN</th>
             <th>HIGH</th>
             <th>LOW</th>
             <th>CLOSE</th>
-            <th>SC_CODE</th>
+            <th>CODE</th>
         </tr>
         {% for company in top_10 %}
         <tr>
@@ -122,20 +132,13 @@
         </tr>
         {% endfor %}
     </table>
+{% else %}
+<div>
+    <div style="padding: 7%;
+    font-family: fantasy;">
+        <span>Your search - {{ search}} - did not match any documents.</span>
+    </div>
+</div>
+{% endif %}
 </body>
-
-<script>
-function UserAction() {
-     console.log("button clicked");
-    var request = new XMLHttpRequest();
-    request.open('GET','http://127.0.0.1:8080/search',true);
-
-    request.onload = function(){
-    var data = JSON.parse(this.response);
-    console.log(data);
-}}
-
-</script>
 </html>
-
-<!--http://127.0.0.1:8080/search-->
