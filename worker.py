@@ -32,7 +32,8 @@ top_10 = {}
 
 for i in range(df.index[-1]+1):
 
-    close = dict(df.loc[i, ['SC_NAME', 'OPEN', 'HIGH', 'LOW', 'CLOSE', 'SC_CODE']])['CLOSE']
+    data_dict = dict(df.loc[i, ['SC_NAME', 'OPEN', 'HIGH', 'LOW', 'CLOSE', 'SC_CODE']])
+    close = data_dict['CLOSE']
 
     if len(top_10) == 10:
         if close > top_10[min(top_10, key=top_10.get)]:
@@ -41,7 +42,7 @@ for i in range(df.index[-1]+1):
     else:
         top_10[i] = close
 
-    conn.hmset(i,dict(df.loc[i,['SC_NAME','OPEN','HIGH','LOW','CLOSE','SC_CODE']]) )
+    conn.hmset(i,data_dict)
 
 for each in top_10:
     pass
