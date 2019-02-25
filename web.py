@@ -2,6 +2,7 @@ import cherrypy
 import os.path
 import redis
 from jinja2 import Environment, FileSystemLoader
+import urllib
 
 class index:
 
@@ -51,7 +52,8 @@ cherrypy.config.update({'engine.autoreload.on': False})
 cherrypy.server.unsubscribe()
 cherrypy.engine.start()
 
-conn = redis.Redis(host=os.environ.get('REDIS_URL', '127.0.0.1'))
+url = urllib.parse.urlparse(os.environ.get('REDIS_URL', '127.0.0.1'))
+conn = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
 configfile = os.path.join(os.path.dirname(__file__),'server.conf')
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 env = Environment(loader=FileSystemLoader(CUR_DIR), trim_blocks=True)
