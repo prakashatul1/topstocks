@@ -4,9 +4,12 @@ import pandas as pd
 import zipfile
 import redis
 import os
+import urllib.parse
 
 
-conn = redis.Redis(host=os.environ.get('REDIS_URL', '127.0.0.1'))
+url = urllib.parse.urlparse(os.environ.get('REDIS_URL', '127.0.0.1'))
+
+conn = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
 
 
 conn.flushall()
