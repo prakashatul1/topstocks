@@ -8,6 +8,9 @@ import os
 
 conn = redis.Redis(host=os.environ.get('REDIS_URL', '127.0.0.1'))
 
+
+conn.flushall()
+
 url = 'https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx'
 page = requests.get(url)
 soup = BeautifulSoup(page.text, 'html.parser')
