@@ -4,7 +4,7 @@ import pandas as pd
 import zipfile
 import redis
 
-conn = redis.Redis('localhost')
+conn = redis.Redis('https://topstocks.herokuapp.com/')
 
 url = 'https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx'
 page = requests.get(url)
