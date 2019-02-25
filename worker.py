@@ -6,11 +6,11 @@ import redis
 import os
 import urllib.parse
 
-
-url = urllib.parse.urlparse(os.environ.get('REDIS_URL', '127.0.0.1'))
-
-conn = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
-
+try:
+    url = urllib.parse.urlparse(os.environ['REDIS_URL'])
+    conn = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+except:
+    conn = redis.Redis('127.0.0.1')
 
 conn.flushall()
 
