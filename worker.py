@@ -6,7 +6,7 @@ import redis
 import os
 
 
-conn = redis.Redis(host=os.environ['REDIS_URL'])
+conn = redis.Redis(host=os.environ.get('REDIS_URL', '127.0.0.1'))
 
 url = 'https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx'
 page = requests.get(url)
