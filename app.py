@@ -3,8 +3,14 @@ import os.path
 import redis
 from jinja2 import Environment, FileSystemLoader
 import urllib
+import sys
+import signal
 
+def signal_handler(signal, frame):
+	print('Exiting...')
+	cherrypy.engine.exit()
 
+signal.signal(signal.SIGINT, signal_handler)
 
 
 class index:
@@ -60,15 +66,16 @@ try:
 except:
     conn = redis.Redis('127.0.0.1')
 
-configfile = os.path.join(os.path.dirname(__file__),'server.conf')
-
+cherrypy.server.socket_host = '127.0.0.1'
+cherrypy.server.socket_port = 8000
+cherrypy.server.thread_pool = 10
 cherrypy.config.update({'engine.autoreload.on': False})
 cherrypy.config.update({'environment': 'embedded'})
 cherrypy.server.unsubscribe()
+cherrypy.engine.signals.subscribe()
 cherrypy.engine.start()
 
-# cherrypy.quickstart(index(),config= configfile)
-
+# cherrypy.quickstart(index())
 
 cherrypy.tree.mount(index(), '/', {})
 application = cherrypy.tree
