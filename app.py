@@ -50,20 +50,25 @@ class index:
 
         return template.render(top_10=list_of_hash, search=search, search_flag = True)
 
+# if __name__ == '__main__':
 
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
+env = Environment(loader=FileSystemLoader(CUR_DIR), trim_blocks=True)
 try:
     url = urllib.parse.urlparse(os.environ['REDIS_URL'])
     conn = redis.Redis(host=url.hostname, port=url.port, db=0, password=url.password)
 except:
     conn = redis.Redis('127.0.0.1')
+
 configfile = os.path.join(os.path.dirname(__file__),'server.conf')
-CUR_DIR = os.path.abspath(os.path.dirname(__file__))
-env = Environment(loader=FileSystemLoader(CUR_DIR), trim_blocks=True)
-cherrypy.quickstart(index(),config= configfile)
 
 cherrypy.config.update({'engine.autoreload.on': False})
 cherrypy.config.update({'environment': 'embedded'})
 cherrypy.server.unsubscribe()
 cherrypy.engine.start()
+
+# cherrypy.quickstart(index(),config= configfile)
+
+
 cherrypy.tree.mount(index(), '/', {})
 application = cherrypy.tree
