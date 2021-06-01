@@ -34,7 +34,7 @@ six==1.12.0
 soupsieve==1.7.3
 tempora==1.14
 traitlets==4.3.2
-urllib3==1.24.1
+urllib3==1.26.5
 uWSGI==2.0.18
 wcwidth==0.1.7
 zc.lockfile==1.4
