@@ -17,7 +17,7 @@ jedi==0.13.2
 Jinja2==2.10
 MarkupSafe==1.1.0
 more-itertools==6.0.0
-numpy==1.16.1
+numpy==1.22.0
 pandas==0.24.1
 parso==0.3.4
 pexpect==4.6.0
